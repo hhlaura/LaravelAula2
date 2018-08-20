@@ -17,23 +17,18 @@ Route::get('/', function () {
 
 Route::get('/atividades', 'AtividadeController@index');
 Route::get('/atividades/{id}', 'AtividadeController@show');
-
-
-
+Route::get('/atividades/create', 'AtividadeController@create');
 
 
 
 Route::get('/mensagem', 'mensagemController@index');
-Route::get('/mensagem/crate', 'MensagemController@create');
-Route::post('/mensagem', 'MensagemController@store');
+Route::get('/mensagem/create', 'mensagemController@create');
+Route::post('/mensagem', 'mensagemController@store');
 
 
 Route::get('/mensagem/{id}', 'mensagemController@show');
-Route::get('/mensagem/{id}/edit', 'MensagemController@edit');
-Route::put('/mensagem/{id}', 'MensagemController@update');
+Route::get('/mensagem/{id}/edit', 'mensagemController@edit');
+Route::put('/mensagem/{id}', 'mensagemController@update');
 
-Route::delete('/mensagem/{id}', 'MensagemController@destroy');
-
-
-Route::get('/mensagem/create', 'MensagemController@create');
+Route::delete('/mensagem/{id}', 'mensagemController@destroy');
 
