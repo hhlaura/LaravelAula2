@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mensagem;
 use Illuminate\Http\Request;
+use \IlluminatezSupport\Facades\Validator;
 
 class MensagemController extends Controller
 {
@@ -25,7 +26,7 @@ return view('Mensagem.list',['Mensagem' => $listamensagem]);
 */
 public function create()
 {
-return view('Mensagem.create');
+return view('mensagem.create');
 }
 
 
@@ -40,16 +41,16 @@ public function store(Request $request){
 
 //vetor com as mensagens de erro
 $mensagem = array(
-'title.required' => 'É obrigatório um título para a Mensagem',
-'description.required' => 'É obrigatório uma descrição para a Mensagem',
-'scheduledto.required' => 'É obrigatório o cadastro da data/hora da Mensagem',
+'titulo.required' => 'É obrigatório um título para a Mensagem',
+'descricao.required' => 'É obrigatório uma descrição para a Mensagem',
+'autor.required' => 'É obrigatório o cadastro da data/hora da Mensagem',
 );
 
 //vetor com as espevcificacoes de calidacoes
 $regras = array(
-'title' => 'required|string|max:255',
-'description.required' => 'required',
-'scheduledto' => 'required|string',
+'titulo' => 'required|string|max:255',
+'descricao.required' => 'required',
+'autor' => 'required|string',
 );
 
 //cria o objeto com as regras de validacao
@@ -64,9 +65,9 @@ return redirect('Mensagem/create')
 
 //se passou pelas validações, processa e salva no banco...
 $obj_Mensagem = new Mensagem();
-$obj_Mensagem->title= $request['title'];
-$obj_Mensagem->description= $request['description'];
-$obj_Mensagem->scheduledto= $request['scheduledto'];
+$obj_Mensagem->titulo= $request['titulo'];
+$obj_Mensagem->descricao= $request['descricao'];
+$obj_Mensagem->autor= $request['autor'];
 $obj_Mensagem->save();
 
 return redirect('/Mensagem')->with('success','Mensagem criada com sucesso!!');
