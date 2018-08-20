@@ -13,7 +13,7 @@ class AddMensagensTable extends Migration
      */
     public function up()
     {
-        Schema::table('mensagem', function (Blueprint $table) {
+        Schema::create('mensagens', function (Blueprint $table) {
             $table ->increments('id');
             $table ->string('titulo');
             $table ->string('texto');

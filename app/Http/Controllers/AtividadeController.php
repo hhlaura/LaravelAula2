@@ -47,7 +47,9 @@ class AtividadeController extends Controller
      */
     public function show(Atividade $atividade)
     {
-        //
+        
+        $atividades = Atividades::find($id);
+        return view('atividades.show',['atividades' => $atividades]);     
     }
 
     /**
