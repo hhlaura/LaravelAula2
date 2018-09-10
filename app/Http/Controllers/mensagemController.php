@@ -93,8 +93,8 @@ return view('Mensagem.show',['Mensagem' => $Mensagem]);
 */
 public function edit(Mensagem $Mensagem)
 {
-//
-}
+     $obj_Mensagem = Mensagem::find($id);
+        return view('mensagem.edit',['mensagem' => $obj_Mensagem]);   }
 
 /**
 * Update the specified resource in storage.
@@ -108,14 +108,24 @@ public function update(Request $request, Mensagem $Mensagem)
 //
 }
 
+
 /**
 * Remove the specified resource from storage.
 *
 * @param \App\Mensagem $Mensagem
 * @return \Illuminate\Http\Response
 */
-public function destroy(Mensagem $Mensagem)
+public function delete($id)
 {
-//
+$obj_Mensagem = Mensagem::find($id);
+return view('mensagem.delete', ['mensagem' => $obj_Mensagem]);
+
 }
+  
+public function destroy($id)
+    {
+        $obj_Mensagem = Mensagem::findOrFail($id);
+        $obj_Mensagem->delete($id);
+        return redirect('/mensagem')->with('sucess','Mensagem excluída com Sucesso!!');
+    }
 }
