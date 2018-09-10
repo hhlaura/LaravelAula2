@@ -1,18 +1,18 @@
 <h1>Formulário de Edição da Atividade código {{$atividade->id}}</h1>
 <hr>
 
-  <!-- EXIBE MENSAGENS DE ERROS -->
-  @if ($errors->any())
-	<div class="container">
-	  <div class="alert alert-danger">
-	    <ul>
-	      @foreach ($errors->all() as $error)
-	      <li>{{ $error }}</li>
-	      @endforeach
-	    </ul>
-	  </div>
+<!-- EXIBE MENSAGENS DE ERROS -->
+@if ($errors->any())
+<div class="container">
+	<div class="alert alert-danger">
+		<ul>
+			@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+			@endforeach
+		</ul>
 	</div>
-  @endif
+</div>
+@endif
 
 <form action="/atividades/{{$atividade->id}}" method="POST">
 	{{ csrf_field() }}

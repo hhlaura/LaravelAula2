@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 Route::get('/atividades', 'AtividadeController@index');
 Route::get('/atividades/create', 'AtividadeController@create');

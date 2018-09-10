@@ -1,26 +1,26 @@
 <h1>Formulário de Edição da Mensagem código {{$mensagem->id}}</h1>
 <hr>
 
-  <!-- EXIBE MENSAGENS DE ERROS -->
-  @if ($errors->any())
-	<div class="container">
-	  <div class="alert alert-danger">
-	    <ul>
-	      @foreach ($errors->all() as $error)
-	      <li>{{ $error }}</li>
-	      @endforeach
-	    </ul>
-	  </div>
+<!-- EXIBE MENSAGENS DE ERROS -->
+@if ($errors->any())
+<div class="container">
+	<div class="alert alert-danger">
+		<ul>
+			@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+			@endforeach
+		</ul>
 	</div>
-  @endif
+</div>
+@endif
 
 
-  <!-- EXIBE MENSAGENS DE SUCESSO -->
+<!-- EXIBE MENSAGENS DE SUCESSO -->
 @if(\Session::has('sucess'))
 <div class="container>">
-<div class="alert alert-sucess">
-{{zSession::get('sucess')}}
-</div>
+	<div class="alert alert-sucess">
+		{{zSession::get('sucess')}}
+	</div>
 </div>
 @endif
 

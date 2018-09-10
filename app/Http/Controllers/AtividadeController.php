@@ -38,13 +38,13 @@ class AtividadeController extends Controller
             'title.required' => 'É obrigatório um título para a atividade',
             'description.required' => 'É obrigatória uma descrição para a atividade',
             'scheduledto.required' => 'É obrigatório o cadastro da data/hora da atividade',
-        );
+            );
         //vetor com as especificações de validações
         $regras = array(
             'title' => 'required|string|max:255',
             'description' => 'required',
             'scheduledto' => 'required|string',
-        );
+            );
         //cria o objeto com as regras de validação
         $validador = Validator::make($request->all(), $regras, $messages);
         //executa as validações
@@ -98,13 +98,13 @@ class AtividadeController extends Controller
             'title.required' => 'É obrigatório um título para a atividade',
             'description.required' => 'É obrigatória uma descrição para a atividade',
             'scheduledto.required' => 'É obrigatório o cadastro da data/hora da atividade',
-        );
+            );
         //vetor com as especificações de validações
         $regras = array(
             'title' => 'required|string|max:255',
             'description' => 'required',
             'scheduledto' => 'required|string',
-        );
+            );
         //cria o objeto com as regras de validação
         $validador = Validator::make($request->all(), $regras, $messages);
         //executa as validações
