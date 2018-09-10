@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mensagem;
 use Illuminate\Http\Request;
-use \IlluminatezSupport\Facades\Validator;
+use \Illuminate\Support\Facades\Validator;
 
 class MensagemController extends Controller
 {
@@ -16,7 +16,7 @@ class MensagemController extends Controller
 public function index()
 {
 $listamensagem = Mensagem::all();
-return view('Mensagem.list',['Mensagem' => $listamensagem]);
+return view('mensagem.list',['mensagem' => $listamensagem]);
 }
 
 /**
@@ -28,6 +28,8 @@ public function create()
 {
 return view('mensagem.create');
 }
+
+
 
 
 /**
@@ -42,14 +44,14 @@ public function store(Request $request){
 //vetor com as mensagens de erro
 $mensagem = array(
 'titulo.required' => 'É obrigatório um título para a Mensagem',
-'descricao.required' => 'É obrigatório uma descrição para a Mensagem',
+'texto.required' => 'É obrigatório uma descrição para a Mensagem',
 'autor.required' => 'É obrigatório o cadastro da data/hora da Mensagem',
 );
 
 //vetor com as espevcificacoes de calidacoes
 $regras = array(
 'titulo' => 'required|string|max:255',
-'descricao.required' => 'required',
+'texto.required' => 'required',
 'autor' => 'required|string',
 );
 
@@ -58,7 +60,7 @@ $validador = Validador::make($request->all(), $regras, $mensagem);
 
 //executa as validacoes
 if($validador->fails()){
-return redirect('Mensagem/create')
+return redirect('mensagem/create')
 ->withErrors($validador)
 ->withInput($request->all);
 }
@@ -66,11 +68,11 @@ return redirect('Mensagem/create')
 //se passou pelas validações, processa e salva no banco...
 $obj_Mensagem = new Mensagem();
 $obj_Mensagem->titulo= $request['titulo'];
-$obj_Mensagem->descricao= $request['descricao'];
+$obj_Mensagem->texto= $request['texto'];
 $obj_Mensagem->autor= $request['autor'];
 $obj_Mensagem->save();
 
-return redirect('/Mensagem')->with('success','Mensagem criada com sucesso!!');
+return redirect('/mensagem')->with('success','Mensagem criada com sucesso!!');
 }
 
 /**
@@ -82,7 +84,7 @@ return redirect('/Mensagem')->with('success','Mensagem criada com sucesso!!');
 public function show($id)
 {
 $Mensagem = Mensagem::find($id);
-return view('Mensagem.show',['Mensagem' => $Mensagem]);
+return view('mensagem.show',['mensagem' => $Mensagem]);
 }
 
 /**
@@ -91,7 +93,7 @@ return view('Mensagem.show',['Mensagem' => $Mensagem]);
 * @param \App\Mensagem $Mensagem
 * @return \Illuminate\Http\Response
 */
-public function edit(Mensagem $Mensagem)
+public function edit($id)
 {
      $obj_Mensagem = Mensagem::find($id);
         return view('mensagem.edit',['mensagem' => $obj_Mensagem]);   }
@@ -103,10 +105,38 @@ public function edit(Mensagem $Mensagem)
 * @param \App\Mensagem $Mensagem
 * @return \Illuminate\Http\Response
 */
-public function update(Request $request, Mensagem $Mensagem)
+public function update(Request $request, $id)
 {
-//
+ //faço as validações dos campos
+        //vetor com as mensagens de erro
+        $messages = array(
+            'titulo.required' => 'É obrigatório um título para a mensagem',
+            'texto.required' => 'É obrigatória uma descrição para a mensagem',
+            'autor.required' => 'É obrigatório o cadastro da data/hora da mensagem',
+        );
+        //vetor com as especificações de validações
+        $regras = array(
+            'titulo' => 'required|string|max:255',
+            'texto' => 'required',
+            'autor' => 'required|string',
+        );
+        //cria o objeto com as regras de validação
+        $validador = Validator::make($request->all(), $regras, $messages);
+        //executa as validações
+        if ($validador->fails()) {
+            return redirect("mensagem/$id/edit")
+            ->withErrors($validador)
+            ->withInput($request->all);
+        }
+        //se passou pelas validações, processa e salva no banco...
+        $obj_Mensagem = Mensagem::findOrFail($id);
+        $obj_Mensagem->titulo =       $request['titulo'];
+        $obj_Mensagem->texto = $request['texto'];
+        $obj_Mensagem->autor = $request['autor'];
+        $obj_Mensagem->save();
+        return redirect('/mensagem')->with('success', 'Mensagem alterada com sucesso!!');
 }
+
 
 
 /**
