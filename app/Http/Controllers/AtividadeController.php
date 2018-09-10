@@ -142,6 +142,6 @@ class AtividadeController extends Controller
     {
         $obj_atividade = Atividade::findOrFail($id);
         $obj_atividade->delete($id);
-        return redirect('/atividades')->with('sucess','Atividade excluída com Sucesso!!');
+        return redirect('/atividades')->with('success','Atividade excluída com Sucesso!!');
     }
 }

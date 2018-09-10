@@ -126,6 +126,6 @@ public function destroy($id)
     {
         $obj_Mensagem = Mensagem::findOrFail($id);
         $obj_Mensagem->delete($id);
-        return redirect('/mensagem')->with('sucess','Mensagem excluída com Sucesso!!');
+        return redirect('/mensagem')->with('success','Mensagem excluída com Sucesso!!');
     }
 }
