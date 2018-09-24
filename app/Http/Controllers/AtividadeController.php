@@ -42,7 +42,7 @@ class AtividadeController extends Controller
     public function store(Request $request)
     {
         //faço as validações dos campos
-        //vetor com as mensagens de erro
+        //vetor com as mensagem de erro
         $messages = array(
             'title.required' => 'É obrigatório um título para a atividade',
             'description.required' => 'É obrigatória uma descrição para a atividade',
@@ -79,7 +79,7 @@ class AtividadeController extends Controller
      */
     public function show($id)
     {
-        $atividade = Atividade::find($id)->with('mensagens')->get()->first();
+        $atividade = Atividade::find($id)->with('mensagem')->get()->first();
         return view('atividade.show',['atividade' => $atividade]);
     }
     /**
@@ -113,7 +113,7 @@ class AtividadeController extends Controller
     public function update(Request $request, $id)
     {
         //faço as validações dos campos
-        //vetor com as mensagens de erro
+        //vetor com as mensagem de erro
         $messages = array(
             'title.required' => 'É obrigatório um título para a atividade',
             'description.required' => 'É obrigatória uma descrição para a atividade',

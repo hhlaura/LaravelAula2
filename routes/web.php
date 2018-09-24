@@ -42,3 +42,4 @@ Route::group(['middleware' => 'auth'], function(){
 		Route::get('/mensagem/{id}/delete', 'mensagemController@delete');
 		Route::delete('/mensagem/{id}', 'mensagemController@destroy');
 });
+

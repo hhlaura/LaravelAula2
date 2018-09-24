@@ -1,4 +1,3 @@
-
 <h1>Mensagem {{$mensagem->id}}</h1>
 <hr>
 <h3><b>Ref. Ativ.:</b> {{$mensagem->atividade->id}}</h3>

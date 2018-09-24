@@ -49,3 +49,4 @@ class mensagemTableSeeder extends Seeder
         ]);
     }
 }
+

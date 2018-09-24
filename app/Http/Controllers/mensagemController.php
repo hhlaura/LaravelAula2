@@ -14,8 +14,8 @@ class MensagemController extends Controller
      */
     public function index()
     {
-        $mensagens = Mensagem::all();
-        return view('mensagem.list',['mensagens' => $mensagens]);
+        $mensagem = Mensagem::all();
+        return view('mensagem.list',['mensagem' => $mensagem]);
     }
     /**
      * Show the form for creating a new resource.
@@ -36,7 +36,7 @@ class MensagemController extends Controller
     public function store(Request $request)
     {
         //faço as validações dos campos
-        //vetor com as mensagens de erro
+        //vetor com as mensagem de erro
         $messages = array(
             'titulo.required' => 'É obrigatório um título para a mensagem',
             'texto.required' => 'É obrigatória uma descrição para a mensagem',
@@ -52,7 +52,7 @@ class MensagemController extends Controller
         $validador = Validator::make($request->all(), $regras, $messages);
         //executa as validações
         if ($validador->fails()) {
-            return redirect('mensagens/create')
+            return redirect('mensagem/create')
             ->withErrors($validador)
             ->withInput($request->all);
         }
@@ -64,7 +64,7 @@ class MensagemController extends Controller
         $obj_Mensagem->user_id = Auth::id();
         $obj_Mensagem->atividade_id = $request['atividade_id'];
         $obj_Mensagem->save();
-        return redirect('/mensagens')->with('success', 'Mensagem criada com sucesso!!');
+        return redirect('/mensagem')->with('success', 'Mensagem criada com sucesso!!');
     }
     /**
      * Display the specified resource.
@@ -109,3 +109,4 @@ class MensagemController extends Controller
         //
     }
 }
+

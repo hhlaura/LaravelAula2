@@ -21,10 +21,10 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($atividade->mensagens as $msg)
+        @foreach($atividade->mensagem as $msg)
 	        <tr>
 	            <td>{{$msg->created_at}}</td>
-	            <td><a href="/mensagens/{{$msg->id}}">{{$msg->titulo}}</a></td>
+	            <td><a href="/mensagem/{{$msg->id}}">{{$msg->titulo}}</a></td>
 	            <td>{{$msg->texto}}</td>
 	        </tr>
         @endforeach

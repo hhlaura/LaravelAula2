@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 class AddAtividadesTable extends Migration
 {
     /**
@@ -18,11 +16,10 @@ class AddAtividadesTable extends Migration
             $table->string('title');            //título da atividade
             $table->string('description');      //descrição da atividade
             $table->dateTime('scheduledto');    //agendado para
-            $table->integer('user_id')->unsigned();    //guarda o
+            $table->integer('user_id')->unsigned(); //guarda o id de quem cadastra a ativ.
             $table->timestamps();               //registro created_at e updated_at
         });
     }
-
     /**
      * Reverse the migrations.
      *
