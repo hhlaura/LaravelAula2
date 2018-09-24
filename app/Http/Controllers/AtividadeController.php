@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Atividade;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 class AtividadeController extends Controller
 {
     /**
@@ -12,7 +13,15 @@ class AtividadeController extends Controller
      */
     public function index()
     {
-        $listaAtividades = Atividade::all();
+        //checa se o usuário está cadastrado
+        if( Auth::check() ){   
+            //retorna somente as atividades cadastradas pelo usuário cadastrado
+            $listaAtividades = Atividade::where('user_id', Auth::id() )->get();     
+        }else{
+            //retorna todas as atividades
+            $listaAtividades = Atividade::all();
+        }
+        
         return view('atividade.list',['atividades' => $listaAtividades]);
     }
     /**
@@ -38,13 +47,13 @@ class AtividadeController extends Controller
             'title.required' => 'É obrigatório um título para a atividade',
             'description.required' => 'É obrigatória uma descrição para a atividade',
             'scheduledto.required' => 'É obrigatório o cadastro da data/hora da atividade',
-            );
+        );
         //vetor com as especificações de validações
         $regras = array(
             'title' => 'required|string|max:255',
             'description' => 'required',
             'scheduledto' => 'required|string',
-            );
+        );
         //cria o objeto com as regras de validação
         $validador = Validator::make($request->all(), $regras, $messages);
         //executa as validações
@@ -58,6 +67,7 @@ class AtividadeController extends Controller
         $obj_Atividade->title =       $request['title'];
         $obj_Atividade->description = $request['description'];
         $obj_Atividade->scheduledto = $request['scheduledto'];
+        $obj_Atividade->user_id     = Auth::id();
         $obj_Atividade->save();
         return redirect('/atividades')->with('success', 'Atividade criada com sucesso!!');
     }
@@ -69,7 +79,7 @@ class AtividadeController extends Controller
      */
     public function show($id)
     {
-        $atividade = Atividade::find($id);
+        $atividade = Atividade::find($id)->with('mensagens')->get()->first();
         return view('atividade.show',['atividade' => $atividade]);
     }
     /**
@@ -80,8 +90,18 @@ class AtividadeController extends Controller
      */
     public function edit($id)
     {
+        //busco os dados do obj Atividade que o usuário deseja editar
         $obj_Atividade = Atividade::find($id);
-        return view('atividade.edit',['atividade' => $obj_Atividade]);   
+        
+        //verifico se o usuário logado é o dono da Atividade
+        if( Auth::id() == $obj_Atividade->user_id ){
+            //retorno a tela para edição
+            return view('atividade.edit',['atividade' => $obj_Atividade]);    
+        }else{
+            //retorno para a rota /atividades com o erro
+            return redirect('/atividades')->withErrors("Você não tem permissão para editar este item");
+        }
+           
     }
     /**
      * Update the specified resource in storage.
@@ -98,13 +118,13 @@ class AtividadeController extends Controller
             'title.required' => 'É obrigatório um título para a atividade',
             'description.required' => 'É obrigatória uma descrição para a atividade',
             'scheduledto.required' => 'É obrigatório o cadastro da data/hora da atividade',
-            );
+        );
         //vetor com as especificações de validações
         $regras = array(
             'title' => 'required|string|max:255',
             'description' => 'required',
             'scheduledto' => 'required|string',
-            );
+        );
         //cria o objeto com as regras de validação
         $validador = Validator::make($request->all(), $regras, $messages);
         //executa as validações
@@ -118,6 +138,7 @@ class AtividadeController extends Controller
         $obj_atividade->title =       $request['title'];
         $obj_atividade->description = $request['description'];
         $obj_atividade->scheduledto = $request['scheduledto'];
+        $obj_atividade->user_id     = Auth::id();
         $obj_atividade->save();
         return redirect('/atividades')->with('success', 'Atividade alterada com sucesso!!');
     }
@@ -130,7 +151,15 @@ class AtividadeController extends Controller
     public function delete($id)
     {
         $obj_Atividade = Atividade::find($id);
-        return view('atividade.delete',['atividade' => $obj_Atividade]);
+        
+        //verifico se o usuário logado é o dono da Atividade
+        if( Auth::id() == $obj_Atividade->user_id ){
+            //retorno o formulário questionando se ele tem certeza
+            return view('atividade.delete',['atividade' => $obj_Atividade]);    
+        }else{
+            //retorno para a rota /atividades com o erro
+            return redirect('/atividades')->withErrors("Você não tem permissão para deletar este item");
+        }
     }
     /**
      * Remove the specified resource from storage.
@@ -142,6 +171,6 @@ class AtividadeController extends Controller
     {
         $obj_atividade = Atividade::findOrFail($id);
         $obj_atividade->delete($id);
-        return redirect('/atividades')->with('success','Atividade excluída com Sucesso!!');
+        return redirect('/atividades')->with('sucess','Atividade excluída com Sucesso!!');
     }
 }

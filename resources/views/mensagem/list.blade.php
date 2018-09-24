@@ -10,6 +10,10 @@
 </div>
 @endif
 
+@auth
+<p><a href="/mensagem/create">Criar novo registro</a></p>
+@endauth
+
 
 @foreach($mensagem as $msg)
 <h3>{{$msg->autor}}</h3>
