@@ -22,9 +22,11 @@
 <a href="/mensagem/{{$msg->id}}">Visualizar</a> 
 <a href="/mensagem/{{$msg->id}}/edit">Editar</a> 
 <a href="/mensagem/{{$msg->id}}/delete">Deletar</a> 
+<p><a href="/mensagem/create">Criar novo registro</a></p>
+
 <br>
 @endforeach
 
-
+{{  $mensagem->links()  }}
 
 <!-- \Carbon\Carbon::parse($atividade->scheduledto)->format('d/m/Y h:m')  -->

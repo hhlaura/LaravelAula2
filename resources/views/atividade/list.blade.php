@@ -32,13 +32,12 @@
       <a href="/atividades/{{$atividade->id}}">Ver Mais</a>
       <a href="/atividades/{{$atividade->id}}/edit">Editar</a> 
       <a href="/atividades/{{$atividade->id}}/delete">Deletar</a>
+        <p><a href="/atividades/create">Criar novo registro</a></p>
+
     </p>
   @endauth
 	<br>
 @endforeach
 
-<br>
 
-@auth
-  <p><a href="/atividades/create">Criar novo registro</a></p>
-@endauth
+{{  $atividades->links()  }}
