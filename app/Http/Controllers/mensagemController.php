@@ -15,7 +15,7 @@ class MensagemController extends Controller
     public function index()
     {
         $mensagens = Mensagem::paginate(3);
-        return view('mensagem.list',['mensagem' => $mensagem]);
+        return view('mensagem.list',['mensagem' => $mensagens]);
     }
     /**
      * Show the form for creating a new resource.

@@ -19,10 +19,10 @@
 				<a class="nav-link" href="/atividades/create" id="help" aria-haspopup="true" aria-expanded="false">Criar Atividades</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/mensagens" id="help" aria-haspopup="true" aria-expanded="false">Listar Mensagens</a>
+				<a class="nav-link" href="/mensagem" id="help" aria-haspopup="true" aria-expanded="false">Listar Mensagens</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/mensagens/create" id="help" aria-haspopup="true" aria-expanded="false">Criar Mensagens</a>
+				<a class="nav-link" href="/mensagem/create" id="help" aria-haspopup="true" aria-expanded="false">Criar Mensagens</a>
 			</li>
 		</ul>
 
@@ -30,17 +30,17 @@
 		<ul class="navbar-nav ml-auto">
 			<!-- Authentication Links -->
 			@guest
-			<li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+			<li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
 			<!-- <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li> -->
 			@else
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User name <span class="caret"></span></a>
 
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" href="{{ route('logout') }}"
 					onclick="event.preventDefault();
 					document.getElementById('logout-form').submit();">
-					{{ __('Logout') }}
+					Logout
 				</a>
 
 				<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -52,3 +52,4 @@
 		</ul>
 	</div>
 </nav>
+

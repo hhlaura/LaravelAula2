@@ -16,15 +16,12 @@ class AtividadeController extends Controller
         //checa se o usuário está cadastrado
         if( Auth::check() ){   
             //retorna somente as atividades cadastradas pelo usuário cadastrado
-            $listaAtividades = Atividade::where('user_id', Auth::id() )->get();     
+            $listaAtividades = Atividade::where('user_id', Auth::id() )
+                                                ->paginate(3);     
         }else{
             //retorna todas as atividades
-            $listaAtividades = Atividade::paginate(3);
-            return view('atividade.list',['atividades' => $atividades]);
-
-    
+            $listaAtividades = Atividade::all();
         }
-
         
         return view('atividade.list',['atividades' => $listaAtividades]);
     }
@@ -46,7 +43,7 @@ class AtividadeController extends Controller
     public function store(Request $request)
     {
         //faço as validações dos campos
-        //vetor com as mensagem de erro
+        //vetor com as mensagens de erro
         $messages = array(
             'title.required' => 'É obrigatório um título para a atividade',
             'description.required' => 'É obrigatória uma descrição para a atividade',
@@ -83,7 +80,7 @@ class AtividadeController extends Controller
      */
     public function show($id)
     {
-        $atividade = Atividade::find($id)->with('mensagem')->get()->first();
+        $atividade = Atividade::where("id",$id)->with('mensagens')->get()->first();
         return view('atividade.show',['atividade' => $atividade]);
     }
     /**
@@ -117,7 +114,7 @@ class AtividadeController extends Controller
     public function update(Request $request, $id)
     {
         //faço as validações dos campos
-        //vetor com as mensagem de erro
+        //vetor com as mensagens de erro
         $messages = array(
             'title.required' => 'É obrigatório um título para a atividade',
             'description.required' => 'É obrigatória uma descrição para a atividade',
