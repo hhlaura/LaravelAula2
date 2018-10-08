@@ -1,4 +1,8 @@
 
+@extends('layouts.app')
+
+@section('content')
+
 <h1>Formulário de Edição da Atividade código {{$atividade->id}}</h1>
 <hr>
 
@@ -23,3 +27,4 @@
 	Agendado para:  <input type="datetime-local" name="scheduledto" value="{{$atividade->scheduledto}}">   <br>
 	<input type="submit" value="Salvar">
 </form>
+@endsection

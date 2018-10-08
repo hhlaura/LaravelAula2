@@ -1,3 +1,8 @@
+
+@extends('layouts.app')
+
+@section('content')
+
 <h1>Lista de Atividades</h1>
 <hr>
 
@@ -41,3 +46,4 @@
 
 
 {{  $atividades->links()  }}
+@endsection

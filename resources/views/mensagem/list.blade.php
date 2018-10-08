@@ -1,3 +1,11 @@
+
+@extends('layouts.app')
+
+
+
+
+@section('content')
+
 <h1>Lista de Mensagem</h1>
 <hr>
 
@@ -30,3 +38,4 @@
 {{  $mensagem->links()  }}
 
 <!-- \Carbon\Carbon::parse($atividade->scheduledto)->format('d/m/Y h:m')  -->
+@endsection
